@@ -1,5 +1,5 @@
 ﻿# ออกแบบหน้าจอโปรแกรมทะเบียนสินทรัพย์
-<img src="Home.png">
+<img src="Home.jpg">
 ### Tools
 
  > - Xampp V3.2.2
