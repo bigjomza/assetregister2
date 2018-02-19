@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+#h1{
+	line-height:35px;
+	margin:0px 0;
+	border-radius:-1px;
+	padding:10px 30px;
+	background-color:#666666;
+	font-size:2em;
+	color:#FFFAFA;
+	padding:15px;
+	font-family:"TH Sarabun New", "Tw Cen MT";
+}
+.fontcolor{ /* เปลี่ยนฟอร์นเป็นสีดำ */
+	color:#000;	
+}
+.fontcolor2{ /* เปลี่ยนฟอร์นเป็นสีดำ */
+	
+	color:#000;	
+	font-size:20px;
+}

@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+	
+}
+.b2 {
+    background-color: #FF0000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+P {
+	font-size:24px;
+	font-family:"TH Sarabun New", "Tw Cen MT";
+}
