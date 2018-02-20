@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
 ?>
@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>Asset Register</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
 </head>
 <body>
 <?php 

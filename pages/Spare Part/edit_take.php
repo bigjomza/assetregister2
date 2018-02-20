@@ -13,6 +13,7 @@
 <head>
 <meta charset="utf-8">
 <title>ฟอร์มแก้ไขประวัติรายการรับการวัสดุ / อุปกรณ์</title>
+<link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
 </head>
 
 <body>

@@ -15,6 +15,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Asset Register</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
   <link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="../../css/style.css" />
@@ -331,13 +332,13 @@
 	//echo "<input type='submit' name='Submi' value=' PRINT ' onClick=\"javascript:this.style.display='none';window.print()\">";
 ?>
 </div>
-<div class="modal" tabindex="-1" role="dialog" id="id01">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	<div class="modal" tabindex="-1" role="dialog" id="id01">
+	<div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<div class="modal-body">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+		</button>
         <form class="modal-content animate" action="../Rent/Add_rent.php" method="post" name="FormRent" >
         	<center><div style="width: 128px; height:128px; text-align:center;">
              	<img src="../../images/packing.png" style="width: 100%;">
@@ -363,11 +364,10 @@
 				<P>วันที่ยืม : <input type="date" name="Rent_time" id="Rent_time"></P>
 				<P>*หมายเหตุ : <textarea name="Rent_ect" ></textarea></P>
 				</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" style="size:100%;">Close</button>
-			<button type="submit" class="btn btn-primary btn-lg">Save changes</button>
-            
-		</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal" style="size:100%;">ยกเลิก</button>
+			<button type="submit" class="btn btn-primary btn-lg">ทำการเบิก</button>
+			</div>
         </form>
       </div>
     </div>
