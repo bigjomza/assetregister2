@@ -1,6 +1,5 @@
 ﻿# ออกแบบหน้าจอโปรแกรมทะเบียนสินทรัพย์
-<img src="Home.png">
-<a href="https://www.nopadol.com" target="_blank"><img src="Home.png"></a>
+<a href="http://www.nopadol.com" target="_blank"><img src="Home.jpg"></a>
 ### Tools
 
  > - Xampp V3.2.2
