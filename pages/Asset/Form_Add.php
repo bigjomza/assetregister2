@@ -10,18 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>ฟอร์มเพิ่มสินทรัพย์</title>
-  <link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="../../images/icons/285690.ico" />
     <link href="css/smart-forms.css" rel="stylesheet" type="text/css">
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="CSS/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="CSS/bootstrap-theme.min.css" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" 
-    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
 </head>
 <style type="text/css">
-	@font-face { font-family: 'FontAwesome'; src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.eot?#iefix') 
-	 format('embedded-opentype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.woff') 
-	 format('woff'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.ttf') 
+	@font-face { font-family: 'FontAwesome'; src: url('fontawesome/fontawesome-webfontba72.eot') 
+	 format('embedded-opentype'), url('fontawesome/fontawesome-webfontba72.woff') 
+	 format('woff'), url('fontawesome/fontawesome-webfontba72.ttf') 
 	 format('truetype'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/172203/fontawesome-webfontba72.svg#FontAwesome') 
 	 format('svg'); 
 	 font-weight: 
@@ -199,7 +197,7 @@ enctype="mu ltipart/form-data">
         </div><!-- end .smart-forms section -->
     </div><!-- end .smart-wrap section -->
     <script src="js/jquery.min.js"></script>
-    <script src="JS/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     </div>
 </body>
 </html>
