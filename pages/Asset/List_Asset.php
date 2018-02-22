@@ -3,7 +3,7 @@
 	if(empty($_SESSION['user_Level']) == '1'){
 		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
 		echo "<script>window.location='../User/Login.php'</script>";
-		exit();	
+		exit();
 	}
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
@@ -107,57 +107,57 @@
               </a>
               <div class="collapse" id="Spare">
                 <ul class="nav flex-column sub-menu">
-                
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/list_spare.php"  title="จัดการวัสดุ-อุปกรณ์">
                      <img src="../../images/icons/slice30-20.png" alt="">
                      <span class="menu-title">จัดการวัสดุ-อุปกรณ์</span>
                      </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/index_sp.php">
                      <img src="../../images/icons/cart_full.png" alt="">
                       <span class="menu-title">จัดทำรายการเบิก</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/take.php">
                     <img src="../../images/icons/download_5-24.png" alt="">
                     <span class="menu-title"> รายการรับเข้า</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/lend.php">
                     <img src="../../images/icons/credit-card.png" alt="">
                        <span class="menu-title">รายการเบิก</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/render.php">
                     <img src="../../images/icons/back-arrow.png" alt="">
                       <span class="menu-title">รับคืนวัสดุ-อุปกรณ์</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/send.php">
                     <img src="../../images/icons/clipboard (1).png" alt="">
                       <span class="menu-title">ประวัติรับคืนวัสดุ </span>
                     </a>
                   </li>
-                  
-                  
+
+
                     <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/report_spart1.php">
                     <img src="../../images/icons/analytics.png" alt="">
                       <span class="menu-title">รายงานยอดคงเหลือ</span>
                     </a>
                        </li>
-                     
+
                      <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/report_take1.php">
                     <img src="../../images/icons/analytics.png" alt="">
@@ -196,18 +196,27 @@
         </nav>
         <!-- partial -->
 	<div class="content-wrapper">
-	<?php 
+	<?php
 	if(empty($_POST['keyword'])){
 		$keyword="";
 	}
 	else{
 		$keyword=$_POST['keyword'];
 	}
+
+	$perpage = 15;
+	  if (isset($_GET['page'])) {
+	  $page = $_GET['page'];
+	  } else {
+	  $page = 1;
+	  }
+
+	$start = ($page - 1) * $perpage;
 	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 and (asset_id LIKE '%$keyword%' or
 		Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%' OR brand LIKE '%$keyword%'
-		OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_time ASC")
+		OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_time DESC limit $start , $perpage" )
 	or die ("MySQL =>".mysqli_error($con));
-	
+
 	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
 	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
 		echo"<p id='middlecenter'>ไม่พบข้อมูลที่ตรงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
@@ -220,7 +229,7 @@
 		echo "<div class='col-lg-12'>";
 		echo "<div class='card'>";
 		echo "<div class='card-body'>";
-		echo "<h5 class='card-title mb-4'>ตารางแสดงสินทรัพย์ทั้งหมด</h5>";
+		echo "<h5 class='card-title mb-4' align=\"center\">ตารางแสดงสินทรัพย์ทั้งหมด</h5>";
 		echo "<div class='table-responsive'>";
 		echo "<table class='table table-striped'>";
 		//echo "<thead>";
@@ -235,15 +244,15 @@
 		echo "<th>สถานะ</th>";
 		echo "</tr>";
 		//echo "</thead>";
-	
+
 	while(list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
 		,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
 		,$Asset_Category ,$Asset_photo ,$Asset_time,$detail,$Asset_status) = mysqli_fetch_row($result)){
-			
+
 		$result2 = mysqli_query($con ,"SELECT Status_name FROM status WHERE Status_id = '$Asset_status' ")
 		or die("SQL Error2=>".mysqli_error($con)) ;
-		list($Status_name) = mysqli_fetch_row($result2); 
-		
+		list($Status_name) = mysqli_fetch_row($result2);
+
 		//echo "<tbody>";
 		echo "<tr class=''>";
 		echo "<td scope='row'>$Asset_id</td>";
@@ -261,30 +270,41 @@
 		$num++;//เพิ่มค่าตัวแปรนับแถว
 		}
 		echo "</table>";
+		?>
+         <?php
+			 $sql2 = "SELECT * FROM asset ";
+			 $query2 = mysqli_query($con, $sql2);
+			 $total_record = mysqli_num_rows($query2);
+			 $total_page = ceil($total_record / $perpage);
+		 ?>
+		<nav>
+			<ul class="pagination">
+             <li class="page-item active">
+             <a href = "List_Asset.php?page=1" aria-label="Previous" class="page-link">
+             <span aria-hidden="true">&laquo;</span>
+             </a>
+             </li>
+             <?php for($i = 1;$i <= $total_page; $i++){ ?>
+             <li class="page-item">
+             	<a href = "List_Asset.php?page=<?php echo $i; ?>" class="page-link "><?php echo $i; ?></a>
+             </li>
+             <?php } ?>
+             <li class="page-item active">
+                 <a href="List_Asset.php?page=<?php echo $total_page;?>" aria-label="Next" class="page-link">
+                 <span aria-hidden="true">&raquo;</span>
+                 </a>
+             </li>
+             </ul>
+		</nav>
+		<?php
 		echo "</div>";
 		echo "</div>";
 		echo "</div>";
-		
-		/*echo "<nav aria-label='...'>";
-		echo "<ul class='pagination'>";
-		echo "<li class='page-item disabled'>";
-		echo "<a class='page-link' href='#' tabindex='-1'>Previous</a>";
-		echo "</li>";
-		echo "<li class='page-item'><a class='page-link' href='#'>1</a></li>";
-		echo "<li class='page-item active'>";
-		echo "<a class='page-link' href='#'>2 <span class='sr-only'>(current)</span></a>";
-		echo "</li>";
-		echo "<li class='page-item'><a class='page-link' href='#'>3</a></li>";
-		echo "<li class='page-item'>";
-		echo "<a class='page-link' href='#'>Next</a>";
-		echo "</li>";
-		echo "</ul>";
-		echo "</nav>";*/
 		echo "</div>";
 	//}
 ?>
         </div>
-        <!-- partial -->   
+        <!-- partial -->
       </div>
     <!-- partial:../../partials/_footer.html -->
         <footer class="footer">

@@ -213,7 +213,7 @@
         
         <div class="content-wrapper">
 		<div class="container">
-        	<div class="header"><h3 align="center">DataTable Asset </h3></div>
+        	<div class="header"><h3 align="center">Search Asset </h3></div>
 			<table id="employee-grid" cellspacing="0" border="0" class="display" width="100%" class="table table-striped table-bordered">
 					<thead>
 						<tr>

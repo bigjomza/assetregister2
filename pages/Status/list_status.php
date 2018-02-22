@@ -3,7 +3,7 @@
 	if(empty($_SESSION['user_Level']) == '1'){
 		echo "<script>alert('คุณไม่มีสิทธิ์เข้าใช้งานในหน้านี้ กรุณา Login ก่อน')</script>";
 		echo "<script>window.location='../User/Login.php'</script>";
-		exit();	
+		exit();
 	}
 	include("../../Funtion/funtion.php");
 	$con = connect_db();
@@ -106,57 +106,57 @@
               </a>
               <div class="collapse" id="Spare">
                 <ul class="nav flex-column sub-menu">
-                
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/list_spare.php"  title="จัดการวัสดุ-อุปกรณ์">
                      <img src="../../images/icons/slice30-20.png" alt="">
                      <span class="menu-title">จัดการวัสดุ-อุปกรณ์</span>
                      </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/index_sp.php">
                      <img src="../../images/icons/cart_full.png" alt="">
                       <span class="menu-title">จัดทำรายการเบิก</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/take.php">
                     <img src="../../images/icons/download_5-24.png" alt="">
                     <span class="menu-title"> รายการรับเข้า</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/lend.php">
                     <img src="../../images/icons/credit-card.png" alt="">
                        <span class="menu-title">รายการเบิก</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/render.php">
                     <img src="../../images/icons/back-arrow.png" alt="">
                       <span class="menu-title">รับคืนวัสดุ-อุปกรณ์</span>
                     </a>
                   </li>
-                  
+
                   <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/send.php">
                     <img src="../../images/icons/clipboard (1).png" alt="">
                       <span class="menu-title">ประวัติรับคืนวัสดุ </span>
                     </a>
                   </li>
-                  
-                  
+
+
                     <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/report_spart1.php">
                     <img src="../../images/icons/analytics.png" alt="">
                       <span class="menu-title">รายงานยอดคงเหลือ</span>
                     </a>
                        </li>
-                     
+
                      <li class="nav-item">
                     <a class="nav-link" href="../Spare Part/report_take1.php">
                     <img src="../../images/icons/analytics.png" alt="">
@@ -196,41 +196,39 @@
         <!-- partial -->
         <div class="content-wrapper">
         <?php
-	if(empty($_POST['keyword'])){ //ถ้าไม่มีการส่งค่าค้นหามาจากไฟล์
-		$keyword="";//กำหนดให้ตัวแปร $keyword ว่าง
+	if(empty($_POST['keyword'])){
+		$keyword="";
 	}
 	else{
 		$keyword=$_POST['keyword'];//รับค่าคำค้นมาจากฟอร์ม
 	}
-	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_name  LIKE '%$keyword%'
-		OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%' OR Asset_serial LIKE '%$keyword%'
-		OR asset_id LIKE '%$keyword%' OR active_point LIKE '%$keyword%'  ORDER BY Asset_id ASC")
+	
+	$perpage = 15;
+	  if (isset($_GET['page'])) {
+	  $page = $_GET['page'];
+	  } else {
+	  $page = 1;
+	  }
+
+	$start = ($page - 1) * $perpage;
+	$result = mysqli_query($con, "SELECT Asset_id, Asset_code, Asset_serial ,Asset_name ,mac_address ,computer_name
+		,brand ,Asset_date ,Asset_company ,Asset_price,Asset_barcode,Asset_Category ,Asset_photo ,Asset_time ,detail ,Asset_status ,active_point
+		FROM asset WHERE Asset_name  LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%' OR brand LIKE '%$keyword%' OR Asset_serial
+		LIKE '%$keyword%' OR asset_id LIKE '%$keyword%' OR active_point LIKE '%$keyword%' ORDER BY Asset_id ASC limit $start , $perpage")
 	or die ("MySQL =>".mysqli_error($con));
 
-	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
-	$rowpage = 5; //กำหนดจำนวนแถวที่จะแสดงในแต่ละหน้า
-	$page = ceil($rows/$rowpage); //จำนวนหน้าทั้งหมดปัดเศษขึ้น (หมายเลขหน้า -1)* จำนวนแถวใน 1 หน้า
-	if(empty($_GET['page_id'])){ //ตรวจสอบว่าตัวแปร $_GET['page_id'] ว่างหรือไม่
-		$page_id = 1;		//กำหนดให้แสดงหน้า 1
-	}
-	else{
-		$page_id = $_GET['page_id'];	//รับค่าหมายเลขหน้ามาจากลิ้งค์ ด้วยวิธี GET
-	}
-	
-	$Star_row = ($page_id * $rowpage) - $rowpage;
-	$result2 = mysqli_query($con, "SELECT Asset_id, Asset_code, Asset_serial ,Asset_name ,mac_address ,computer_name
-		,brand ,Asset_date ,Asset_company ,Asset_price,Asset_barcode
-		,Asset_Category ,Asset_photo ,Asset_time ,detail ,Asset_status ,active_point FROM asset WHERE Asset_name  LIKE '%$keyword%'
-		OR Asset_code LIKE '%$keyword%'OR brand LIKE '%$keyword%' OR Asset_serial LIKE '%$keyword%'
-		OR asset_id LIKE '%$keyword%' OR active_point LIKE '%$keyword%' LIMIT $Star_row , $rowpage")
+	$rows = mysqli_num_rows($result);
+	$result2 = mysqli_query($con, "SELECT * FROM asset WHERE Asset_name  LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%'OR brand 
+	LIKE '%$keyword%' OR Asset_serial LIKE '%$keyword%' OR asset_id LIKE '%$keyword%' OR active_point LIKE '%$keyword%' 
+	ORDER BY Asset_id ASC")
 	or die ("MySQL =>".mysqli_error($con));
 	$num = 1;//กำหนดตัวแปรเพื่อนับแถว
 	echo "<div class='row mb-2'>";
 	echo "<div class='col-lg-12'>";
 	echo "<div class='card'>";
 	echo "<div class='card-body'>";
-	echo "<h5 class='card-title mb-4'>ตารางแสดงสินทรัพย์ทั้งหมด</h5>";
-	echo "<div class='table-responsive'>";	
+	echo "<h5 class='card-title mb-4' align=\"center\">ตารางแสดงสินทรัพย์ทั้งหมด</h5>";
+	echo "<div class='table-responsive'>";
 	echo "<table align='center' class='table table-hover table-striped'>";
 	echo "<th id='titletable'>รหัสสินทรัพย์</th>";
 	echo "<th id='titletable'>หมายเลขทะเบียน</th>";
@@ -240,7 +238,7 @@
 	echo "<th id='titletable'>สถานะการใช้งาน</th>";
 	echo "<th id='titletable'>จุดใช้งาน[ล่าสุด]</th>";
 	echo "<th id='titletable'>เบิกสินทรัพย์</th>";
-	
+
 	while(list($Asset_id,$Asset_code ,$Asset_serial ,$Asset_name ,$mac_address,$computer_name
 		,$brand,$Asset_date ,$Asset_company ,$Asset_price,$Asset_barcode
 		,$Asset_Category ,$Asset_photo ,$Asset_time,$detail,$Asset_status,$active_point) = mysqli_fetch_row($result)){
@@ -251,7 +249,7 @@
 
 	$result2 = mysqli_query($con,"SELECT Status_id,Status_name FROM status")
 	or die ("mysql error=>>".mysql_error($con));
-	$Rent_time = date("d-M-Y"); 
+	$Rent_time = date("d-M-Y");
 		echo "<tr>";
 		echo "<td align='center' id='titletable3'>$Asset_id</td>";
 		echo "<td align='center' id='titletable3'>$Asset_code</td>";
@@ -262,7 +260,7 @@
 		echo "<td align='center' id='titletable3'>";
 		echo "<form action=\"update_status.php\">";
 		echo "<input type='hidden' name='Asset_id' value= '$Asset_id'> ";
-		//echo "<input type='hidden' name='module' value= '6'> "; 
+		//echo "<input type='hidden' name='module' value= '6'> ";
 		//echo "<input type='hidden' name='action' value= '20'> ";
 		echo "<select name='Asset_status' id='titletable2' class='custom-select-sm'>";
 		while(list($Status_id,$Status_name)=mysqli_fetch_row($result2)){
@@ -276,7 +274,7 @@
 		} //ปิด While Status_id
 		echo "</select>&nbsp;&nbsp;";
 		switch($Asset_status){
-			case "04" : echo "<button type='submit' name='update' id='' value='บันทึก' 
+			case "04" : echo "<button type='submit' name='update' id='' value='บันทึก'
 			class='btn btn-primary btn-sm' disabled>บันทึก</button></form>"; break;
 			default : echo "<button type='submit' name='update' id='' value='บันทึก' class='btn btn-primary btn-sm'>บันทึก
 			</button></form>"; break;
@@ -288,11 +286,11 @@
 		echo "<form action=\"index.php\" method='post'>";
 		echo "<td align='center'>";
 		switch($Asset_status){
-			case "01" : echo "<img src='../../images/box.png' width='40' height='40'onClick=\"openModal('".$Asset_id."', '".$Asset_code."','".$Rent_time."')\" 
+			case "01" : echo "<img src='../../images/box.png' width='40' height='40'onClick=\"openModal('".$Asset_id."', '".$Asset_code."','".$Rent_time."')\"
 				title='ทำรายการเบิก'>"; break;
 			case "02" : echo "<img src='../../images/02.png' width='40' height='40' title='สินทรัพย์เสีย'>"; break;
-			case "03" : echo "<img src='../../images/03.png' width='40' height='40' title='รอการซ่อมแซม'>"; break;	
-			case "04" : echo "<img src='../../images/04.png' width='40' height='40' title='รายการถูกเบิก'>"; break;	
+			case "03" : echo "<img src='../../images/03.png' width='40' height='40' title='รอการซ่อมแซม'>"; break;
+			case "04" : echo "<img src='../../images/04.png' width='40' height='40' title='รายการถูกเบิก'>"; break;
 			default : echo "Error Test $Asset_status"; break;
 		} //ปิด Switch
 		echo "</td>";
@@ -300,36 +298,37 @@
 		echo "</tr>";
 			echo "</div>";
 		echo "</div>";
-		$num++;//เพิ่มค่าตัวแปรนับแถว
-	} //ปิด fetch row 
+		$num++;
+	} //ปิด fetch row
 	echo"</table>";
+		$sql2 = "SELECT * FROM asset ";
+		$query2 = mysqli_query($con, $sql2);		
+		$total_record = mysqli_num_rows($query2);
+		$total_page = ceil($total_record / $perpage);
+	?>
+    <nav>
+			<ul class="pagination">
+             <li class="page-item active">
+             <a href = "list_status.php?page=1" aria-label="Previous" class="page-link">
+             <span aria-hidden="true">&laquo;</span>
+             </a>
+             </li>
+             <?php for($i = 1;$i <= $total_page; $i++){ ?>
+             <li class="page-item">
+             	<a href = "list_status.php?page=<?php echo $i; ?>" class="page-link "><?php echo $i; ?></a>
+             </li>
+             <?php } ?>
+             <li class="page-item active">
+                 <a href="list_status.php?page=<?php echo $total_page;?>" aria-label="Next" class="page-link">
+                 <span aria-hidden="true">&raquo;</span>
+                 </a>
+             </li>
+             </ul>
+		</nav>
+        <?php
 	echo "</div>";
-	//วนลูปแสดงลิ้งค์หมายเลขหน้า ตามจำนวนหน้า
-	echo "หน้า $page_id จากทั้งหมด $page ";
-	for($id = 1 ;$id <= $page; $id++){
-		//ถ้าเป็นหน้าปัจจุบัน ให้เป๋นตัวหนา สีแดง และไม่มีลิ้งค์
-		if($id == $page_id){
-			echo "<span style='font-weight: bold;color:green; border: solid 1px #444;background-color:Yellow;padding:5px; margin-right:5 px;'>[$id]</span>";
-		}
-		else{ //ถ้าไม่ใช่หน้าปัจจุบัน แสดงลิ้งค์ปกติ
-		echo "<span style='font-weight: bold;color:red; border: soile 1px #444; padding: 5px;margin-right 5px;background-color:pink'>
-		<A Href ='list_status.php?page_id=$id&keyword=$keyword'>[$id]</A></span>";
-		}
-	} //ปิด For
-	if($page_id < $page){
-		$Next = $page_id +1;
-		echo "<span style='border: soile 1px #4444; padding: 5px;margin-right 5px;'>
-		<a href='list_status.php?page_id=$Next'&$keyword'>หน้าถัดไป</a></span>";
-	}
-	else{
-		$back =$page_id -1;
-		echo "<span style='border: soile 1px #4444; padding: 5px;margin-right 5px;'>
-		<a href='list_status.php?page_id=$back'&$keyword>ย้อนกลับ</a></span>";
-	}
+
 	
-	
-	//}
-	//echo "<input type='submit' name='Submi' value=' PRINT ' onClick=\"javascript:this.style.display='none';window.print()\">";
 ?>
 </div>
 	<div class="modal" tabindex="-1" role="dialog" id="id01">
@@ -348,15 +347,16 @@
 				<P>No : <input type="text" name="id_asset" id="id_asset" readonly ></P>
 				<P>รหัสสินทรัพย์ : <input type="text" name="Rent_asset" id="Rent_assets" readonly></P>
 				<P>รหัสพนักงาน <img src="../../images/if_asterisk.png" title="สำคัญ!" height="16px"> : <input type="text" name="Rent_emp" required></P>
+                <P><?php include("../User/Check_emp.php"); ?></P>
 				<P>จุดใช้งาน : <select name="Rent_active">
-                            <?php 
-                                  $result=mysqli_query($con,"SELECT Active_id,Active_name FROM active_point") 
+                            <?php
+                                  $result=mysqli_query($con,"SELECT Active_id,Active_name FROM active_point")
 									  or die ("mysql error=>>".mysql_error($con));
 									  while(list( $Active_id,$Active_name)=mysqli_fetch_row($result)){
 										  $select = $Active_id == $Active_name? "selected":"";
-									  echo "<option value=$Active_id>$Active_name</option>";  
+									  echo "<option value=$Active_id>$Active_name</option>";
 									  }
-									  
+
 									  mysqli_free_result($result);
 									  mysqli_close($con);
                                 ?>
@@ -373,12 +373,11 @@
     </div>
   </div>
 </div>
-</div> 
+</div>
         </div>
         <!-- partial -->
       </div>
     </div>
-  
   <!-- partial:../../partials/_footer.html -->
         <footer class="footer">
           <div class="container-fluid clearfix">
@@ -398,7 +397,7 @@
 }
 </script>
 	<script src="../../js/jquery.min.js"></script>
-    <script src="../../JS/bootstrap.min.js"></script>   
+    <script src="../../JS/bootstrap.min.js"></script>
 	<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
 	<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
