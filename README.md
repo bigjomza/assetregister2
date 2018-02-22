@@ -7,12 +7,13 @@
  > - HTML
  > - Dreamweaver CS6
  > - Google สไลค์ (Powverpoint)
-
+ > - ATOM
 
 ===
 ### Framework
 
  > - CSS
+ > - BootStrap
  > - Java Scrip
 
 ===
