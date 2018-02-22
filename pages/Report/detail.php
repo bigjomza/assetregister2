@@ -102,7 +102,7 @@
               <div class="collapse" id="Spare">
                 <ul class="nav flex-column sub-menu">
                 
-<li class="nav-item">
+				<li class="nav-item">
                     <a class="nav-link" href="../Spare Part/list_spare.php"  title="จัดการวัสดุ-อุปกรณ์">
                      <img src="../../images/icons/slice30-20.png" alt="">
                      <span class="menu-title">จัดการวัสดุ-อุปกรณ์</span>
@@ -191,15 +191,23 @@
         <!-- partial -->
 	<div class="content-wrapper">
 	<?php 
-		$Asset_Category=$_GET['id']; 
+	$Asset_Category=$_GET['id']; 
 	if(empty($_POST['keyword'])){
 		$keyword="";
 	}
 	else{
 		$keyword=$_POST['keyword'];
 	}
+	$perpage = 15;
+	  if (isset($_GET['page'])) {
+	  $page = $_GET['page'];
+	  } else {
+	  $page = 1;
+	  }
+
+	$start = ($page - 1) * $perpage;
 		$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_Category = '$Asset_Category' and (asset_id LIKE '%$keyword%' or
-		Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%')")
+		Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%')limit $start , $perpage")
 		or die ("MySQL =>".mysqli_error($con));
 		
 		$rows = mysqli_num_rows($result); 
@@ -254,6 +262,32 @@
 			$num++;
 		}
 		echo "</table>";
+		$sql2 = "SELECT * FROM asset ";
+		$query2 = mysqli_query($con, $sql2);		
+		$total_record = mysqli_num_rows($query2);
+		$total_page = ceil($total_record / $perpage);
+	?>
+    <nav>
+    		<input type="hidden" name="Asset_Category" value="<?php echo $Asset_Category=$_GET['id']; ?>">
+			<ul class="pagination">
+             <li class="page-item active">
+             <a href = "detail.php?id=<?php echo $Asset_Category=$_GET['id']; ?>&page=1" aria-label="Previous" class="page-link">
+             <span aria-hidden="true">&laquo;</span>
+             </a>
+             </li>
+             <?php for($i = 1;$i <= $total_page; $i++){ ?>
+             <li class="page-item">
+             	<a href = "detail.php?id=<?php echo $Asset_Category=$_GET['id']; ?>&page=<?php echo $i; ?>" class="page-link "><?php echo $i; ?></a>
+             </li>
+             <?php } ?>
+             <li class="page-item active">
+                 <a href="detail.php?id=<?php echo $Asset_Category=$_GET['id']; ?>&page=<?php echo $total_page;?>" aria-label="Next" class="page-link">
+                 <span aria-hidden="true">&raquo;</span>
+                 </a>
+             </li>
+             </ul>
+		</nav>
+        <?php
 		echo "</div>";
 		echo "</div>";
 		echo "</div>";
