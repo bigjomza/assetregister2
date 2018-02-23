@@ -18,6 +18,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Asset Register</title>
+  <link rel="shortcut icon" type="image/x-icon" href="images/icons/285690.ico" />
   <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -219,7 +220,7 @@
 </head>
 <body>
   <ul id="ccc">
-  <li id="xx"><a class="active">ระบบการจัดการทะเบียนสินทรัพย์บริษัทนพดลพาณิชย์</a></li>
+  <li id="xx"><a class="active">ระบบทะเบียนสินทรัพย์และวัสดุแผนกไอที บริษัท นพดลพานิช จำกัด</a></li>
 </ul>
 <STYLE>
 A:link { 

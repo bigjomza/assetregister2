@@ -64,7 +64,7 @@
           </div>
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link" href="../../index.html">
+              <a class="nav-link" href="../../index.php">
                 <img src="../../images/icons/house.png" alt="">
                 <span class="menu-title">Home</span>
               </a>
@@ -237,7 +237,6 @@
 			echo "<td id='titletablelist2'>
 				<a href='Delect_rent.php?Rent_id=$Rent_id'onclick='return confirm(\"กดปุ่ม ตกลงเพื่อยืนยันการคืนข้อมูล\")'>
 				<img src='../../images/System_Restore.png'  width='30'  height='30'></TD>";
-			
 			echo "</tr>"; 
 			echo "</div>";
 			echo "</div>";
