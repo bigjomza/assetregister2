@@ -214,17 +214,15 @@
 	$start = ($page - 1) * $perpage;
 	$result = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 and (asset_id LIKE '%$keyword%' or
 		Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%' OR brand LIKE '%$keyword%'
-		OR Asset_Category LIKE '%$keyword%' OR Asset_serial) ORDER BY Asset_time DESC limit $start , $perpage" )
+		OR Asset_Category LIKE '%$keyword%' OR Asset_serial LIKE '%$keyword%') ORDER BY Asset_time DESC limit $start , $perpage" )
 	or die ("MySQL =>".mysqli_error($con));
-
-	$rows = mysqli_num_rows($result); //จำนวนแถวที่คิวรี่ออกมาได้
-	if($rows==0){ // ถ้านับจำนวนแถวที่คิวรี่ออกมาได้เท่ากับ 0 แสดงว่าไม่มีข้อมูลที่ตรงกับคำค้นหา
-		echo"<p id='middlecenter'>ไม่พบข้อมูลที่ตรงกับคำค้น\"<b>$keyword</b>\"</p><hr>";
-	}
-	/*else{
-		echo"<p id='middlecenter'>จำนวนสินทรัพย์ที่ตรงกับคำว่า \"<b>$keyword</b>\"
-			ทั้งหมด $rows รายการ </p>";*/
-	$num=1; //กำหนดตัวแปรเพื่อนับแถว
+	$rows = mysqli_num_rows($result);
+	
+	$result2 = mysqli_query($con, "SELECT * FROM asset WHERE Asset_log = 1 and (asset_id LIKE '%$keyword%' or
+		Asset_name LIKE '%$keyword%' OR Asset_code LIKE '%$keyword%' OR brand LIKE '%$keyword%'
+		OR Asset_Category LIKE '%$keyword%' OR Asset_serial LIKE '%$keyword%') ORDER BY Asset_time DESC")
+	or die ("MySQL =>".mysqli_error($con));
+	$num=1; 
 		echo "<div class='row mb-2'>";
 		echo "<div class='col-lg-12'>";
 		echo "<div class='card'>";

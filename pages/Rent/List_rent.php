@@ -220,9 +220,9 @@
 			or die ("Error =>".mysqli_error($con));
 			list($Rent_asset) = mysqli_fetch_row($result1);
 			
-			$result2 = mysqli_query($con,"SELECT Emp_name FROM employee WHERE Emp_code = '$Rent_emp'") 
+/*			$result2 = mysqli_query($con,"SELECT Emp_name FROM employee WHERE Emp_code = '$Rent_emp'") 
 			or die ("Error =>".mysqli_error($con));
-			list($Rent_emp) = mysqli_fetch_row($result2);
+			list($Rent_emp) = mysqli_fetch_row($result2);*/
 			
 			$result3 = mysqli_query($con,"SELECT Active_name FROM active_point WHERE Active_id = '$Rent_active'") 
 			or die ("Error =>".mysqli_error($con));
